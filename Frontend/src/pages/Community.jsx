@@ -46,7 +46,7 @@ export default function Community() {
     setFetchError('')
 
     try {
-      const response = await axios.get(`${communityApi}/opinions`)
+      const response = await axios.get(`${communityApi}`)
       setOpinions(Array.isArray(response.data) ? response.data : [])
     } catch (error) {
       setFetchError(error.response?.data?.message ?? 'تعذر تحميل آراء المجتمع.')
