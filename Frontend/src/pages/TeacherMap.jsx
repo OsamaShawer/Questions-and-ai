@@ -7,6 +7,7 @@ import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined'
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded'
 import SectionAccordion from '../components/maryam/SectionAccordion.jsx'
 import { teachermapContent } from '../data/teachermapContent.js'
+import libraryVideo from '../assets/multi-media/المكتبة.mp4'
 
 const storageKey = 'teachermap-expanded-sections'
 const pdfBySection = {
@@ -105,6 +106,22 @@ export default function TeacherMap() {
     <ThemeProvider theme={teachermapTheme}>
       <Box className="maryam-page" component="main" dir="rtl">
         <Container maxWidth="lg">
+          <Box className="page-video-card" component="section" aria-label="فيديو المكتبة التمهيدي">
+            <Box className="page-video-card__header">
+              <Typography className="page-video-card__eyebrow" component="p">
+                فيديو تمهيدي
+              </Typography>
+              <Typography className="page-video-card__title" component="h2">
+                المكتبة
+              </Typography>
+            </Box>
+            <Box className="page-video-frame">
+              <video controls preload="metadata">
+                <source src={libraryVideo} type="video/mp4" />
+              </video>
+            </Box>
+          </Box>
+
           <Box className="maryam-hero" component="section" aria-labelledby="teachermap-title">
             <Typography className="maryam-hero__eyebrow" component="p">
               {teachermapContent.eyebrow}

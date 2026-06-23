@@ -17,19 +17,19 @@ const sections = [
     description: 'مساحة لعرض وجهات النظر والأسئلة حول التعليم والتقنية.',
   },
   {
-    title: 'فعالية الأسئلة',
-    path: '/questions',
-    description: 'أسئلة تأملية تساعد المعلم على مراجعة دوره التربوي.',
+    title: 'الصوت الشخصي',
+    path: '/my-opinion',
+    description: 'الرأي الشخصي ',
   },
   {
-    title: 'تدريب الذكاء الاصطناعي',
+    title: 'ETPACK',
     path: '/bot-ai',
-    description: 'مدخل لاستخدام المساعدات الذكية بوصفها دعمًا للمعلم لا بديلًا عنه.',
+    description: 'ETPACK, والتعلم السقراطي',
   },
   { 
-    title: 'مراجع و مصطلحات مهمة',
-    path: '/important-terms',
-    description: 'مراجع و مصطلحات مهمة للمعلم لتطوير مهارة الموازنة بين الكفاءة التقنية ودفء البعد الإنساني في عملية التعليم'
+    title: 'إقرار استخدام الذكاء الاصطناعي',
+    path: '/ai-usage',
+    description: 'إقرار استخدام الذكاء الاصطناعي بالتفصيل'
   },
 
 ]
@@ -48,11 +48,13 @@ export default function Home() {
           </div>
         </section>
 
+
         <section className="section-cards" aria-labelledby="sections-title">
           <div className="container">
             <div className="section-cards__header">
               <p className="eyebrow">الأقسام</p>
               <h2 id="sections-title">اختر المسار الذي تريد استكشافه</h2>
+              
               <p>كل بطاقة تقودك إلى مساحة مستقلة تساعدك على فهم دور المعلم في عصر الذكاء الاصطناعي.</p>
             </div>
           </div>
@@ -67,6 +69,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          
         </section>
       </main>
     </div>

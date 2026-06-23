@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded'
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded'
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
@@ -32,6 +33,51 @@ const initialFormState = {
   opinion: '',
 }
 
+const communityCriticalContent = [
+  {
+    title: 'التحليل النقدي للقضية',
+    paragraphs: [
+      'تتمحور القضية حول التوتر الجدلي بين تسارع الابتكار التقني وضرورة الحفاظ على المركزية الإنسانية في التعليم. يتطلب هذا التحول تجاوز النظرة التقنية الضيقة نحو تبني رؤية تربوية تعيد تعريف دور المعلم من ناقل للمعلومات إلى مصمم للتجربة التعليمية وموجّه أخلاقي .(Mishra, Warr, & Islam, 2023)',
+    ],
+  },
+  {
+    title: 'الحجج المؤيدة والمعارضة',
+    groups: [
+      {
+        title: 'أ) الحجج المؤيدة:',
+        items: [
+          '1) يعمل الذكاء الاصطناعي كأداة سقالة فكرية تعزز قدرات الطالب المعرفية وتوفر فرصاً للتعلم المخصص والشخصي .(Mishra, Warr, & Islam, 2023)',
+          '2) يساهم في تطوير محو الأمية بالذكاء الاصطناعي التي تعد مهارة ضرورية للطلاب في سوق العمل المستقبلي (Ng, Leung, Chu, & Qiao, 2021) .',
+        ],
+      },
+      {
+        title: 'ب) الحجج المعارضة (التحديات):',
+        items: [
+          '1) وجود تحيز خوارزمي كامن في النماذج قد يرسخ عدم المساواة في الفرص التعليمية إذا لم يتم التعامل معه بنقد واعي  .(Ng, Leung, Chu, & Qiao, 2021)',
+          `2) خطر التأثير السلبي على النمو العاطفي والنمو العصبي للطفل نتيجة الاعتماد المفرط على التفاعل مع الآلة
+ .(Li & Lee, 2025)`,
+          '3) تهديد الوكالة المعرفية  للطالب عند إضفاء الطابع الإنساني على الآلات  .(Li & Lee, 2025)',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'توصيات ومقترحات إجرائية',
+    groups: [
+      {
+        items: [
+          `1) تبني الشك المنهجي : يجب تدريب المعلمين والطلاب على ممارسة الشك المنهجي تجاه مخرجات الذكاء الاصطناعي لتفكيكها نقدياً، بدلاً من القبول السلبي
+.(Mishra, Warr, & Islam, 2023; Ng, Leung, Chu, & Qiao, 2021)`,
+          '2) تعزيز جاهزية المعلمين:  لا يجب أن تقتصر جاهزية المعلم على المهارة التقنية، بل يجب أن تشمل فهم الأبعاد الأخلاقية والتربوية (Wang et al., 2023; Ayanwale et al., 2022)',
+          '3) الحفاظ على اللمسة الإنسانية:  يجب أن تظل العملية التعليمية محكومة بوجود بشري دائم، مع التأكيد على أن العلاقات الإنسانية هي العنصر غير القابل للاستبدال  .(UNESCO, 2023; Mishra, Warr, & Islam, 2023)',
+          `4) إرساء سياسات الشفافية: ضرورة وضع أطر مؤسسية تضمن المساءلة والشفافية في استخدام الأدوات المؤتمتة، خاصة فيما يتعلق بتقييم الطلاب واتخاذ القرارات
+ .(Ministry of Science and Technology, 2023; Israel Democracy Institute, 2023)`,
+        ],
+      },
+    ],
+  },
+]
+
 export default function Community() {
   const [formValues, setFormValues] = useState(initialFormState)
   const [fieldErrors, setFieldErrors] = useState({})
@@ -40,6 +86,14 @@ export default function Community() {
   const [opinions, setOpinions] = useState([])
   const [isFetchingOpinions, setIsFetchingOpinions] = useState(true)
   const [fetchError, setFetchError] = useState('')
+  const [openCriticalCards, setOpenCriticalCards] = useState({})
+
+  const handleCriticalCardToggle = (title) => {
+    setOpenCriticalCards((currentCards) => ({
+      ...currentCards,
+      [title]: !currentCards[title],
+    }))
+  }
 
   const fetchOpinions = useCallback(async () => {
     setIsFetchingOpinions(true)
@@ -139,6 +193,57 @@ export default function Community() {
             <Typography className="maryam-hero__lead" component="p">
               نرحب بآرائكم وتجاربكم حول تأثير الذكاء الاصطناعي على التعليم ودور المعلم في المستقبل.
             </Typography>
+          </Box>
+
+          <Box className="community-critical-section" component="section" aria-label="التحليل النقدي للقضية">
+            {communityCriticalContent.map((section) => (
+              <Box className="community-critical-card" component="article" key={section.title}>
+                <Box className="community-critical-card__header">
+                  <Typography className="community-critical-card__title" component="h2">
+                    {section.title}
+                  </Typography>
+
+                  <button
+                    className={`community-critical-toggle ${openCriticalCards[section.title] ? 'is-open' : ''}`}
+                    type="button"
+                    aria-expanded={Boolean(openCriticalCards[section.title])}
+                    aria-label={`عرض أو إخفاء ${section.title}`}
+                    onClick={() => handleCriticalCardToggle(section.title)}
+                  >
+                    <ExpandMoreRoundedIcon aria-hidden="true" />
+                  </button>
+                </Box>
+
+                {openCriticalCards[section.title] && (
+                  <Box className="community-critical-card__content">
+                    {section.paragraphs?.map((paragraph) => (
+                      <Typography className="community-critical-card__paragraph" component="p" key={paragraph}>
+                        {paragraph}
+                      </Typography>
+                    ))}
+
+                    {section.groups?.map((group, groupIndex) => (
+                      <Box className="community-critical-group" key={group.title ?? groupIndex}>
+                        {group.title && (
+                          <Typography className="community-critical-group__title" component="h3">
+                            {group.title}
+                          </Typography>
+                        )}
+
+                        <Box className="community-critical-grid">
+                          {group.items.map((item, index) => (
+                            <Box className="community-critical-point" component="article" key={item}>
+                              <span className="community-critical-point__number">{index + 1}</span>
+                              <Typography component="p">{item}</Typography>
+                            </Box>
+                          ))}
+                        </Box>
+                      </Box>
+                    ))}
+                  </Box>
+                )}
+              </Box>
+            ))}
           </Box>
 
           <Box className="community-form-card" component="section" aria-label="نموذج مشاركة الرأي">
