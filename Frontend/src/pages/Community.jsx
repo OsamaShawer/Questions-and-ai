@@ -1,20 +1,17 @@
 import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import Alert from '@mui/material/Alert'
-import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
-import InputAdornment from '@mui/material/InputAdornment'
 import Skeleton from '@mui/material/Skeleton'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded'
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
 import SendRoundedIcon from '@mui/icons-material/SendRounded'
@@ -29,7 +26,6 @@ const communityTheme = createTheme({
 })
 
 const initialFormState = {
-  username: '',
   opinion: '',
 }
 
@@ -134,10 +130,6 @@ export default function Community() {
   const validateForm = () => {
     const errors = {}
 
-    if (!formValues.username.trim()) {
-      errors.username = 'اسم المستخدم مطلوب'
-    }
-
     if (!formValues.opinion.trim()) {
       errors.opinion = 'الرأي مطلوب'
     }
@@ -159,7 +151,6 @@ export default function Community() {
 
     try {
       const response = await axios.post(`${communityApi}/opinion`, {
-        username: formValues.username.trim(),
         opinion: formValues.opinion.trim(),
       })
 
@@ -255,27 +246,6 @@ export default function Community() {
             </Box>
 
             <Box className="community-form" component="form" noValidate onSubmit={handleSubmit}>
-              <TextField
-                error={Boolean(fieldErrors.username)}
-                fullWidth
-                helperText={fieldErrors.username}
-                label="اسم المستخدم"
-                name="username"
-                onChange={handleChange}
-                placeholder="اكتب اسمك هنا"
-                required
-                value={formValues.username}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PersonRoundedIcon />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              />
-
               <TextField
                 error={Boolean(fieldErrors.opinion)}
                 fullWidth
@@ -382,12 +352,12 @@ export default function Community() {
                 {opinions.map((opinion) => (
                   <Box className="community-opinion-card" component="article" key={opinion.id}>
                     <Box className="community-opinion-card__top">
-                      <Avatar className="community-opinion-card__avatar">
-                        {getUsernameInitial(opinion.username)}
-                      </Avatar>
+                      <Box className="community-opinion-card__avatar" aria-hidden="true">
+                        <ChatBubbleOutlineRoundedIcon />
+                      </Box>
                       <Box>
                         <Typography className="community-opinion-card__username" component="h3">
-                          {opinion.username}
+                          رأي مشارك
                         </Typography>
                         <Typography className="community-opinion-card__date" component="p">
                           {formatOpinionDate(opinion.createdAt)}
@@ -409,10 +379,6 @@ export default function Community() {
       </Box>
     </ThemeProvider>
   )
-}
-
-function getUsernameInitial(username) {
-  return username?.trim()?.charAt(0)?.toUpperCase() || '؟'
 }
 
 function formatOpinionDate(dateValue) {

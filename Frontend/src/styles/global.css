@@ -1709,13 +1709,21 @@ li {
   gap: 12px;
 }
 
-.community-opinion-card__avatar.MuiAvatar-root {
+.community-opinion-card__avatar {
   width: 48px;
   height: 48px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
   background: #1e3a5f;
   color: #ffffff;
   font-family: 'Noto Kufi Arabic', 'Tajawal', system-ui, sans-serif;
   font-weight: 800;
+}
+
+.community-opinion-card__avatar svg {
+  font-size: 1.35rem;
 }
 
 .community-opinion-card__username {
