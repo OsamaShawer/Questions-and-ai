@@ -19,7 +19,7 @@ import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded'
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
 import SendRoundedIcon from '@mui/icons-material/SendRounded'
 
-const communityApi = 'https://ai-backend-production-d8af.up.railway.app'
+const communityApi = 'https://ai-backend-production-d8af.up.railway.app/api/community'
 
 const communityTheme = createTheme({
   direction: 'rtl',
